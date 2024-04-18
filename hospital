@@ -1,0 +1,60 @@
+-- Tabela Especialidade
+CREATE TABLE Especialidade (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50)
+);
+
+-- Tabela Médico
+CREATE TABLE Medico (
+    id SERIAL PRIMARY KEY,
+    id_especialidade INT,
+    nome VARCHAR(100),
+    celular VARCHAR(15),
+    FOREIGN KEY (id_especialidade) REFERENCES Especialidade(id)
+);
+
+-- Tabela Paciente
+CREATE TABLE Paciente (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    celular VARCHAR(15)
+);
+
+-- Tabela Consulta
+CREATE TABLE Consulta (
+    id SERIAL PRIMARY KEY,
+    id_medico INT,
+    id_paciente INT,
+    data_hora_inicio TIMESTAMP,
+    data_hora_fim TIMESTAMP,
+    FOREIGN KEY (id_medico) REFERENCES Medico(id),
+    FOREIGN KEY (id_paciente) REFERENCES Paciente(id)
+);
+
+-- Populando a tabela Especialidade
+INSERT INTO Especialidade (nome) VALUES
+('Cardiologia'),
+('Dermatologia'),
+('Pediatria'),
+('Ortopedia');
+
+-- Populando a tabela Médico
+INSERT INTO Medico (id_especialidade, nome, celular) VALUES
+(1, 'Dr. João Silva', '9999-1111'),
+(2, 'Dra. Maria Santos', '9999-2222'),
+(3, 'Dr. Pedro Almeida', '9999-3333'),
+(4, 'Dra. Ana Oliveira', '9999-4444');
+
+-- Populando a tabela Paciente
+INSERT INTO Paciente (nome, celular) VALUES
+('José da Silva', '8888-1111'),
+('Maria da Costa', '8888-2222'),
+('João Oliveira', '8888-3333'),
+('Ana Pereira', '8888-4444');
+
+-- Populando a tabela Consulta
+INSERT INTO Consulta (id_medico, id_paciente, data_hora_inicio, data_hora_fim) VALUES
+(1, 1, '2024-04-18 10:00:00', '2024-04-18 11:00:00'),
+(2, 2, '2024-04-18 11:30:00', '2024-04-18 12:30:00'),
+(3, 3, '2024-04-18 14:00:00', '2024-04-18 15:00:00'),
+(4, 4, '2024-04-18 15:30:00', '2024-04-18 16:30:00');
